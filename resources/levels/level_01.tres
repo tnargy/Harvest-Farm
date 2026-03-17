@@ -1,0 +1,103 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3 uid="uid://level01"]
+
+[ext_resource type="Script" path="res://scripts/resources/LevelData.gd" id="1_leveldata"]
+
+[resource]
+script = ExtResource("1_leveldata")
+level_id = 1
+turn_limit = 20
+star_threshold_2 = 8
+star_threshold_3 = 14
+crop_set = ["strawberry", "carrot", "corn", "sunflower"]
+goals = [
+	{ "type": "score", "target": 800 }
+]
+grid_layout = [
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	]
+]
+seed_reward_3star = 20
+score_overrides = {}
+meta = {
+	"author": "designer",
+	"version": "1.0",
+	"notes": "Tutorial level. Introduces the 4 base crops and a single score goal. All cells active, no obstacles."
+}

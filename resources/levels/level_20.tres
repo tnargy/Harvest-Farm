@@ -1,0 +1,110 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3 uid="uid://level20"]
+
+[ext_resource type="Script" path="res://scripts/resources/LevelData.gd" id="1_leveldata"]
+
+[resource]
+script = ExtResource("1_leveldata")
+level_id = 20
+turn_limit = 30
+star_threshold_2 = 10
+star_threshold_3 = 18
+crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato", "pumpkin"]
+goals = [
+	{ "type": "score", "target": 3000 },
+	{ "type": "clear_dirt" },
+	{ "type": "clear_flowers" },
+	{ "type": "collect_crop", "crop": "pumpkin", "target": 10 }
+]
+grid_layout = [
+	[
+		{ "active": false },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "flower", "flower_hp": 3 },
+		{ "active": true, "obstacle": "flower", "flower_hp": 3 },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": false }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "rock" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "rock" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "dirt" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "dirt" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "flower", "flower_hp": 3 },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "dirt" },
+		{ "active": true, "obstacle": "dirt" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "flower", "flower_hp": 3 }
+	],
+	[
+		{ "active": true, "obstacle": "flower", "flower_hp": 3 },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "dirt" },
+		{ "active": true, "obstacle": "dirt" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "flower", "flower_hp": 3 }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "dirt" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "dirt" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "rock" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "rock" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" }
+	],
+	[
+		{ "active": false },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "flower", "flower_hp": 3 },
+		{ "active": true, "obstacle": "flower", "flower_hp": 3 },
+		{ "active": true, "obstacle": "none" },
+		{ "active": true, "obstacle": "none" },
+		{ "active": false }
+	]
+]
+seed_reward_3star = 40
+score_overrides = {
+	"match_3": 60,
+	"match_4": 120,
+	"special_activation": 300
+}
+meta = {
+	"author": "designer",
+	"version": "1.0",
+	"notes": "Challenge level. Uses all obstacle types: holes (4 corners), rocks (4 cells), 8 dirt patches, 6 flowers at full HP. Multi-goal: reach 3000 points, clear all dirt, clear all flowers, collect 10 pumpkins. Score overrides increase base match values to compensate for reduced active cells. Introduces pumpkin (6th crop)."
+}
