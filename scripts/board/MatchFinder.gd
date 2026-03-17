@@ -193,6 +193,26 @@ func _find_t_shapes(
 			if crop == "":
 				continue
 
+			# ── Vertical spine: (row-1, col), (row, col), (row+1, col) ──
+			# Perpendicular arm (horizontal): (row, col-1), (row, col+1)
+			# Checked first so a board that satisfies both descriptions (a pure +
+			# shape) is always labelled "vertical" — Wheelbarrow clears both row
+			# and column regardless, so the label only affects future-proofing.
+			if _same_crop(board, crop, [
+				Vector2i(row - 1, col), Vector2i(row + 1, col),
+				Vector2i(row, col - 1), Vector2i(row, col + 1)
+			]):
+				var shape_cells: Array[Vector2i] = [
+					Vector2i(row - 1, col), Vector2i(row, col), Vector2i(row + 1, col),
+					Vector2i(row, col - 1), Vector2i(row, col + 1)
+				]
+				if not _any_claimed(shape_cells, claimed):
+					var origin := swap_origin if swap_origin in shape_cells else Vector2i(row, col)
+					var mr := MatchResult.new(shape_cells, "match_t", "vertical", origin)
+					results.append(mr)
+					_claim(shape_cells, claimed)
+					continue
+
 			# ── Horizontal spine: (row, col-1), (row, col), (row, col+1) ──
 			# Perpendicular arm (vertical): (row-1, col), (row+1, col)
 			if _same_crop(board, crop, [
@@ -206,23 +226,6 @@ func _find_t_shapes(
 				if not _any_claimed(shape_cells, claimed):
 					var origin := swap_origin if swap_origin in shape_cells else Vector2i(row, col)
 					var mr := MatchResult.new(shape_cells, "match_t", "horizontal", origin)
-					results.append(mr)
-					_claim(shape_cells, claimed)
-					continue
-
-			# ── Vertical spine: (row-1, col), (row, col), (row+1, col) ──
-			# Perpendicular arm (horizontal): (row, col-1), (row, col+1)
-			if _same_crop(board, crop, [
-				Vector2i(row - 1, col), Vector2i(row + 1, col),
-				Vector2i(row, col - 1), Vector2i(row, col + 1)
-			]):
-				var shape_cells: Array[Vector2i] = [
-					Vector2i(row - 1, col), Vector2i(row, col), Vector2i(row + 1, col),
-					Vector2i(row, col - 1), Vector2i(row, col + 1)
-				]
-				if not _any_claimed(shape_cells, claimed):
-					var origin := swap_origin if swap_origin in shape_cells else Vector2i(row, col)
-					var mr := MatchResult.new(shape_cells, "match_t", "vertical", origin)
 					results.append(mr)
 					_claim(shape_cells, claimed)
 

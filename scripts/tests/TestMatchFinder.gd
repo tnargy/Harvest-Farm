@@ -589,15 +589,20 @@ func _test_would_swap_create_match() -> void:
 
 	# Spec behavioral scenario — invalid swap:
 	# No valid match would result from swapping (2,2) and (2,3).
+	# Board is filled so that every possible swap of those two cells produces
+	# no 3-in-a-row. Use two crops arranged so no three of either are adjacent
+	# after the swap. A simple isolated pair with mismatched neighbours works:
+	#   row 2: . . a b . . . .   swap a(2,2) ↔ b(2,3)
+	#   After:  . . b a . . . .  — neither side gains two same-crop neighbours.
 	board.fill_from_strings([
-		"abababab",
-		"babababa",
-		"abababab",
-		"babababa",
-		"abababab",
-		"babababa",
-		"abababab",
-		"babababa",
+		"........",
+		"........",
+		"..ab....",
+		"........",
+		"........",
+		"........",
+		"........",
+		"........",
 	])
 	_assert(not finder.would_swap_create_match(board, Vector2i(2, 2), Vector2i(2, 3)),
 		"would_swap_create_match: returns false for swap that creates no match (spec §4.1 scenario)")
@@ -649,6 +654,9 @@ func _test_invalid_swap_two_specials() -> void:
 		"two specials adjacent: would_swap_create_match == false (spec §5.1)")
 
 	# A special adjacent to a normal piece is a valid swap if it creates a match.
+	# Swap scarecrow(3,3) right with 'a' at (3,4) — after swap:
+	#   (3,3)=a, (3,4)=scarecrow, (3,5)=a, (3,6)=a
+	#   'a' at (3,3),(3,5),(3,6) are not contiguous — no match.
 	board.fill_from_strings([
 		"........",
 		"........",
@@ -663,40 +671,21 @@ func _test_invalid_swap_two_specials() -> void:
 	board.place_piece(3, 4, "a",         false, "")
 	board.place_piece(3, 5, "a",         false, "")
 	board.place_piece(3, 6, "a",         false, "")
-	# Swap scarecrow right with 'a' at (3,4) — scarecrow moves to (3,4),
-	# 'a' pieces at (3,5),(3,6) plus the 'a' now at (3,3) don't form 3-of-a-kind.
-	# The scarecrow activation check is BoardController's job; MatchFinder only
-	# checks whether a match forms for the non-special piece after the swap.
-	# After swap: (3,3)=a, (3,4)=scarecrow, (3,5)=a, (3,6)=a
-	# 'a' at (3,3),(3,5),(3,6) are not contiguous — no match.
 	_assert(not finder.would_swap_create_match(board, Vector2i(3, 3), Vector2i(3, 4)),
 		"special + normal swap: false when non-special side has no contiguous match")
 
 	# Now place it so the normal piece DOES create a 3-match when swapped.
-	board.fill_from_strings([
-		"........",
-		"........",
-		"........",
-		"........",
-		"........",
-		"........",
-		"........",
-		"........",
-	])
-	board.place_piece(3, 3, "scarecrow", true, "")
-	board.place_piece(3, 4, "a",         false, "")
-	board.place_piece(3, 5, "a",         false, "")
+	# Layout before swap:
+	#   (3,2)=a  (3,3)=a  (3,4)=scarecrow  (3,5)=a  (3,6)=a
+	# Swap scarecrow(3,4) ↔ a(3,5):
+	#   (3,2)=a  (3,3)=a  (3,4)=a  (3,5)=scarecrow  (3,6)=a
+	#   'a' at (3,2),(3,3),(3,4) → contiguous match_3 ✓
 	board.place_piece(3, 2, "a",         false, "")
-	# After swap scarecrow(3,3)↔a(3,4): (3,2)=a, (3,3)=a, (3,4)=scarecrow, (3,5)=a
-	# 'a' at (3,2),(3,3) and (3,5) — not contiguous yet.
-	# Rearrange: swap scarecrow(3,4) with a(3,3).
-	# Before swap: (3,2)=a, (3,3)=a, (3,4)=scarecrow, (3,5)=a
-	# After swap:  (3,2)=a, (3,3)=scarecrow, (3,4)=a, (3,5)=a
-	# 'a' at (3,4),(3,5) — only 2, no match. Let's add (3,6)=a.
-	board.place_piece(3, 6, "a", false, "")
-	# After swap scarecrow(3,4)↔a(3,3): scarecrow at (3,3), a at (3,2),(3,4),(3,5),(3,6)
-	# a is contiguous at (3,4),(3,5),(3,6) → match_3!
-	_assert(finder.would_swap_create_match(board, Vector2i(3, 4), Vector2i(3, 3)),
+	board.place_piece(3, 3, "a",         false, "")
+	board.place_piece(3, 4, "scarecrow", true,  "")
+	board.place_piece(3, 5, "a",         false, "")
+	board.place_piece(3, 6, "a",         false, "")
+	_assert(finder.would_swap_create_match(board, Vector2i(3, 4), Vector2i(3, 5)),
 		"special + normal swap: true when normal-piece side creates a 3-match after swap")
 
 
