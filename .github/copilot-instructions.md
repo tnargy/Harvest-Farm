@@ -1,3 +1,6 @@
+**Version used**
+Godot 4.6.1
+
 **Prevent assumption-making**
 
 - Never infer missing values — reference balance.tres constants only, never hardcode a number
