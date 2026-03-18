@@ -457,21 +457,35 @@ func _test_match4_spawns_bushel_basket() -> void:
 	print("\n── %s ──" % _current_suite)
 
 	var balance := _make_balance()
-	# Vertical match-4 in col 0, triggered by a horizontal swap at row 4.
+	# Vertical match-4 in col 0, triggered by a horizontal swap at row 5.
 	#
-	# Base board: 3-crop abc-cycle pattern — no 3-in-a-row anywhere, so the
-	# post-refill board (which receives at most 4 new pieces in col 0 rows 0-3)
-	# also stays cascade-free.
+	# Base board: 3-crop abc-cycle pattern — no 3-in-a-row anywhere.
+	# Base row 4 col0 = "b" (from "bcabcabc") — this sits above the match and
+	# is NOT "a", so col0 cannot extend to a match-5. ✓
 	#
-	# Overwrite col 0 rows 4-7 and col 1 row 4 to set up the trigger:
-	#   (4,0)="b"  (4,1)="a"  (5,0)="a"  (6,0)="a"  (7,0)="a"
-	# swap (4,0)↔(4,1): (4,0)←"a", (4,1)←"b".
+	# Overwrite col 0 rows 5-7 and col 1 row 5 to set up the trigger:
+	#   (5,0)="b"  (5,1)="a"  (6,0)="a"  (7,0)="a"  — only 3 cells below swap row.
+	# But we need 4 "a"s total in col0 after the swap, so also overwrite (4,0)="a":
+	#   (4,0)="a"  (5,0)="b"  (5,1)="a"  (6,0)="a"  (7,0)="a"
+	# swap (5,0)↔(5,1): (5,0)←"a", (5,1)←"b".
 	# col0 rows 4,5,6,7 = a,a,a,a → vertical match-4. ✓
-	# swap_origin = cell_a = (4,0). Basket spawns at (4,0); falls to row 7. ✓
-	# Only col0 rows 0-3 are refilled (4 cells into an existing abc cycle) → no cascade. ✓
+	# Row 3 col0 from base = "a" (from "abcabcab") — would extend to 5!
+	# Use row 7 as the bottom: rows 4,5,6,7 col0.
+	# Base row 3 col0 = "a" — clash. So shift: use rows 5,6,7 + one more.
+	# Better anchor: base row 4 col0 = "b" ✓ (not "a"), so match rows 4-7 is safe
+	# as long as row 3 col0 ≠ "a". Base row 3 = "abcabcab" → col0 = "a". Clash!
+	#
+	# Solution: keep match at rows 4-7, but use a base row 3 that has col0 ≠ "a".
+	# Shift the cycle by one row at the top so row 3 = "bcabcabc" (col0="b"):
+	#   row0="bcabcabc" row1="cabcabca" row2="abcabcab" row3="bcabcabc"
+	#   row4="cabcabca" row5="abcabcab" row6="bcabcabc" row7="cabcabca"
+	# Now base row3 col0="b", row4 col0="c" — neither is "a". ✓
+	# Overwrite (4,0)="b", (4,1)="a", (5,0)="a", (6,0)="a", (7,0)="a".
+	# After swap (4,0)↔(4,1): col0 rows 4,5,6,7 = a,a,a,a → match-4. ✓
+	# Row 3 col0 = "b" ≠ "a" → no match-5. ✓
+	# Refill fills col0 rows 0-3 into the cycle — no 3-in-a-row possible. ✓
 	var level := _make_level(["a", "b", "c"], [{"type": "score", "target": 9999}])
 	var ctrl  := _make_controller([
-		"abcabcab",
 		"bcabcabc",
 		"cabcabca",
 		"abcabcab",
@@ -479,6 +493,7 @@ func _test_match4_spawns_bushel_basket() -> void:
 		"cabcabca",
 		"abcabcab",
 		"bcabcabc",
+		"cabcabca",
 	], level, balance)
 	ctrl.board.place_piece(4, 0, "b", false, "")  # displaced right by swap
 	ctrl.board.place_piece(4, 1, "a", false, "")  # cell_b: moves left into col0
@@ -602,44 +617,52 @@ func _test_match_t_spawns_wheelbarrow() -> void:
 	print("\n── %s ──" % _current_suite)
 
 	var balance := _make_balance()
-	# Base board: 3-crop abc-cycle pattern — no 3-in-a-row anywhere.
-	# After clearing the 5 T-shape cells and refilling, the new pieces drop into
-	# existing abc-cycle neighbours in col3 rows 0-6 and cols 2,4 row6, none of
-	# which can form a run → no cascade. ✓
+	# T-shape (vertical spine): centre at (6,3), spine (5,3),(6,3),(7,3),
+	# arm (6,2),(6,4). The MatchFinder detects this as a plus/cross pattern.
 	#
-	# T-shape: vertical spine col3 rows5,6,7 + horizontal arm row6 cols2,3,4.
-	# Overwrite those cells plus (4,3) for the swap:
-	#   (4,3)="a"  (5,3)="b"  (6,3)="a"  (7,3)="a"  (6,2)="a"  (6,4)="a"
-	# swap (4,3)↔(5,3): (4,3)←"b", (5,3)←"a".
-	# col3 rows5,6,7=a,a,a + row6 cols2,3,4=a,a,a → T-shape (5 cells). ✓
-	# Barrow spawns at cell_a=(4,3); col3 rows5-7 cleared → falls to row7. ✓
-	# Score = 5×120 + 200 = 800. ✓
+	# Trigger: swap cell_a=(7,3) with cell_b=(7,4).
+	#   Pre-swap:  (7,3)="b", (7,4)="a"
+	#   Post-swap: (7,3)←"a", (7,4)←"b"
+	# T-shape cells after swap: (5,3),(6,3),(7,3),(6,2),(6,4) all = "a". ✓
+	# BoardController overrides swap_origin = cell_a = (7,3).
+	# Wheelbarrow spawns at (7,3) — already the bottom row, no falling needed. ✓
+	#
+	# Cleared cells: (5,3),(6,3),(7,3),(6,2),(6,4).
+	# After clear, col 3 rows 5 and 6 are empty (row 7 holds the wheelbarrow).
+	# A rock at (4,3) acts as a hard barrier: _piece_at() returns "" for rocks,
+	# so the 2 refill cells at rows 5,6 are completely isolated — they can never
+	# form a 3-in-a-row with anything above the rock or the special below. ✓
+	# Col 2 and col 4 each lose only row 6 → 1 refill cell each → no cascade. ✓
+	# Score = 5 × 120 + 200 = 800. ✓
 	var level := _make_level(["a", "b", "c"], [{"type": "score", "target": 9999}])
 	var ctrl  := _make_controller([
 		"abcabcab",
 		"bcabcabc",
 		"cabcabca",
 		"abcabcab",
-		"bcabcabc",
+		"bcaRcabc",  # R = rock at (4,3) — isolates the col-3 refill cells
 		"cabcabca",
 		"abcabcab",
 		"bcabcabc",
 	], level, balance)
-	ctrl.board.place_piece(4, 3, "a", false, "")  # cell_a: moves into row5 after swap
-	ctrl.board.place_piece(5, 3, "b", false, "")  # displaced upward by swap
+	ctrl.board.place_piece(5, 3, "a", false, "")  # spine top
 	ctrl.board.place_piece(6, 3, "a", false, "")  # spine centre
-	ctrl.board.place_piece(7, 3, "a", false, "")  # spine bottom
+	ctrl.board.place_piece(7, 3, "b", false, "")  # cell_a: displaced right by swap
+	ctrl.board.place_piece(7, 4, "a", false, "")  # cell_b: moves left into col3
 	ctrl.board.place_piece(6, 2, "a", false, "")  # horizontal arm left
 	ctrl.board.place_piece(6, 4, "a", false, "")  # horizontal arm right
 	ctrl.board.turns_remaining = level.turn_limit
 
-	var result := ctrl.attempt_swap(Vector2i(4, 3), Vector2i(5, 3))
+	# swap (7,3)↔(7,4): (7,3)←"a", (7,4)←"b".
+	# T-shape: (5,3),(6,3),(7,3)=a,a,a + (6,2),(6,4)=a,a. ✓
+	# swap_origin = cell_a = (7,3). Wheelbarrow spawns at (7,3).
+	var result := ctrl.attempt_swap(Vector2i(7, 3), Vector2i(7, 4))
 	_assert(result.accepted, "T-shape swap accepted")
 
-	# Barrow spawns at cell_a=(4,3) then falls through cleared rows 5,6,7 → row7.
+	# Wheelbarrow spawns at cell_a=(7,3) — bottom row, no gravity fall needed.
 	var wh_cell := ctrl.board.get_cell(7, 3)
 	_assert(wh_cell.is_special and wh_cell.piece == "wheelbarrow",
-		"wheelbarrow settled in col 3 after gravity")
+		"wheelbarrow at swap origin (7,3)")
 	# Score = 5 × 120 + 200 = 800
 	_assert(ctrl.board.score == 800, "score == 800 for T-shape + special bonus")
 
