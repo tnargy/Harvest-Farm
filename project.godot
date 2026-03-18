@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Harvest Farm"
+run/main_scene="res://scenes/tests/TestSaveData.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SaveData="*res://scripts/persistence/SaveData.gd"
 
 [editor_plugins]
 

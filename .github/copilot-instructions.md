@@ -26,3 +26,7 @@ Godot 4.6.1
 
 - After implementing each system, verify it against the behavioral scenarios in the spec before moving to the next layer
 - A system is not complete until every behavioral scenario for that system produces the described outcome
+- Use godot-mcp tools to run in-editor verification: use `play_scene` to launch the game, `get_hierarchy` and `get_object_properties` to inspect runtime state, and `stop_scene` when done
+- Use `find_objects_by_name` and `get_object_properties` to assert node state matches expected outcomes from the spec
+- Use `diagnostics` after every script change to catch errors before running the scene
+- Never mark a behavioral scenario as passing based on code review alone — confirm it by running the scene via godot-mcp
