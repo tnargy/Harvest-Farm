@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bb0lxvs8lb2lw"]
+
+[ext_resource type="Script" path="res://scripts/tests/TestSeedEconomy.gd" id="1"]
+
+[node name="TestSeedEconomy" type="Node" unique_id=1092316197]
+script = ExtResource("1")
+
+[node name="TestSeedEconomy#InfoLabel" type="Label" parent="." unique_id=64034925]
+text = "TestSeedEconomy — Layer 5 Seed Economy. Results print to the Godot output console on scene start."

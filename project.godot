@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 
 SaveData="*res://scripts/persistence/SaveData.gd"
 LivesManager="*res://scripts/lives/LivesManager.gd"
+SeedEconomy="*res://scripts/economy/SeedEconomy.gd"
 MCPRuntime="*uid://b3x1b5xbr62m2"
 
 [editor_plugins]

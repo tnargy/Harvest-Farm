@@ -1,6 +1,6 @@
 # Harvest Match — Project Roadmap
 
-**Last updated:** 2026-03-19  
+**Last updated:** 2026-03-20  
 **Engine:** Godot 4.6.1  
 **Spec version:** 1.1
 
@@ -85,7 +85,15 @@ See spec §11 for earn sources, spend conditions, and the disabled-button rule.
 
 Note: `BoardController.TurnResult.seeds_earned` already tracks per-turn seed income — the economy layer only needs to flush that value into `SaveData` at turn resolution.
 
-**Dependency:** Layer 3 (SaveData).
+**Dependency:** Layer 3 (SaveData), Layer 4 (LivesManager).
+
+**Status:** ✅ — Implementation complete and verified (13/13 tests passed).
+
+| System | File(s) |
+|--------|---------|
+| Seed economy | `scripts/economy/SeedEconomy.gd` |
+| Test suite | `scripts/tests/TestSeedEconomy.gd` |
+| Test scene | `scenes/tests/TestSeedEconomy.tscn` |
 
 ---
 
