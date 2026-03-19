@@ -72,6 +72,9 @@ See spec §10 for regeneration timing, the launch-time calculation, and the 0-li
 
 **Dependency:** Layer 3 (SaveData).
 
+**Status:** ✅ — Implementation complete and verified (19/19 tests passed).
+
+
 ---
 
 ## Layer 5 — Seed Economy

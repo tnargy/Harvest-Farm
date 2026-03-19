@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SaveData="*res://scripts/persistence/SaveData.gd"
+LivesManager="*res://scripts/lives/LivesManager.gd"
 MCPRuntime="*uid://b3x1b5xbr62m2"
 
 [editor_plugins]
