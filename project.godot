@@ -11,17 +11,17 @@ config_version=5
 [application]
 
 config/name="Harvest Farm"
-run/main_scene="res://scenes/tests/TestSaveData.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 SaveData="*res://scripts/persistence/SaveData.gd"
+MCPRuntime="*uid://b3x1b5xbr62m2"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_mcp/plugin.cfg")
+enabled=PackedStringArray("res://addons/auto_reload/plugin.cfg", "res://addons/godot_mcp_editor/plugin.cfg", "res://addons/godot_mcp_runtime/plugin.cfg")
 
 [physics]
 

@@ -358,7 +358,7 @@ func _load() -> bool:
 func _deserialize(data: Dictionary) -> bool:
 	# ── Format version ────────────────────────────────────────────────────────
 	var version = data.get("version", null)
-	if not (version is int) or (version as int) != 1:
+	if not (version is int or version is float) or int(version) != 1:
 		push_warning(
 			"SaveData._deserialize: unknown save version '%s' — applying defaults." % str(version)
 		)

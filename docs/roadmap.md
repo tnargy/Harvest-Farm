@@ -1,6 +1,6 @@
 # Harvest Match — Project Roadmap
 
-**Last updated:** 2026-03-18  
+**Last updated:** 2026-03-19  
 **Engine:** Godot 4.6.1  
 **Spec version:** 1.1
 
@@ -59,6 +59,8 @@ A standalone `SaveData.gd` autoload with no UI dependency. Everything from lives
 See spec §13 for the full field list, write-trigger rules, and reset behaviour.
 
 **Dependency:** none.
+
+**Status:** ✅ — Implementation complete and verified (116/116 tests passed).
 
 ---
 
