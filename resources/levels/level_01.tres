@@ -5,12 +5,12 @@
 [resource]
 script = ExtResource("1_leveldata")
 level_id = 1
-turn_limit = 1
+turn_limit = 20
 star_threshold_2 = 8
 star_threshold_3 = 14
 crop_set = Array[String](["strawberry", "carrot", "corn", "sunflower"])
 goals = Array[Dictionary]([{
-"target": 80000,
+"target": 800,
 "type": "score"
 }])
 grid_layout = Array[Array]([[{
