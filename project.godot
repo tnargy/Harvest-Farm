@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Harvest Farm"
+run/main_scene="res://scenes/ui/MainMenu.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 
@@ -19,7 +20,15 @@ config/icon="res://icon.svg"
 SaveData="*res://scripts/persistence/SaveData.gd"
 LivesManager="*res://scripts/lives/LivesManager.gd"
 SeedEconomy="*res://scripts/economy/SeedEconomy.gd"
+ScreenData="*res://scripts/ui/ScreenData.gd"
+ScreenRouter="*res://scripts/ui/ScreenRouter.gd"
 MCPRuntime="*uid://b3x1b5xbr62m2"
+
+[display]
+
+window/size/viewport_width=390
+window/size/viewport_height=844
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="Balance" load_steps=2 format=3 uid="uid://balance"]
+[gd_resource type="Resource" script_class="Balance" format=3 uid="uid://balance"]
 
-[ext_resource type="Script" path="res://scripts/resources/Balance.gd" id="1_balance"]
+[ext_resource type="Script" uid="uid://b1ix5v6t834kt" path="res://scripts/resources/Balance.gd" id="1_balance"]
 
 [resource]
 script = ExtResource("1_balance")
@@ -9,13 +9,3 @@ SEED_REWARD_SPECIAL_BUSHEL = 5
 SEED_REWARD_SPECIAL_SCARECROW = 10
 SEED_REWARD_SPECIAL_WATERING_CAN = 8
 SEED_REWARD_SPECIAL_WHEELBARROW = 12
-CASCADE_MULTIPLIER_PER_LEVEL = 0.5
-CASCADE_MULTIPLIER_CAP = 3.0
-LIFE_REGEN_MINUTES = 15
-MAX_LIVES = 3
-SCORE_MATCH_3_PER_PIECE = 50
-SCORE_MATCH_4_PER_PIECE = 100
-SCORE_MATCH_5_PER_PIECE = 150
-SCORE_MATCH_L_PER_PIECE = 100
-SCORE_MATCH_T_PER_PIECE = 120
-SCORE_SPECIAL_ACTIVATION_BONUS = 200

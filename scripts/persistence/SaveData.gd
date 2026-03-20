@@ -62,6 +62,11 @@ var _sound_enabled: bool = true
 ## Background-music toggle. Defaults to on (spec §15).
 var _music_enabled: bool = true
 
+## Level the player is currently about to play / playing.
+## Set by the Level Select or Level Intro screen before launching GameplayScene.
+## Defaults to 1. Persisted in save file.
+var _current_level: int = 1
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Lifecycle
 # ─────────────────────────────────────────────────────────────────────────────
@@ -125,6 +130,22 @@ func get_highest_unlocked() -> int:
 			return i + 1   # level_id is 1-indexed; this level is unlocked but not yet beaten
 	# Every level has been completed — the last level is the highest unlocked.
 	return TOTAL_LEVELS
+
+
+## Returns the level_id the player is currently set to play (1–50).
+func get_current_level() -> int:
+	return _current_level
+
+
+## Sets the level the player is about to play.
+## Validates range, then persists immediately.
+func set_current_level(level_id: int) -> void:
+	assert(
+		level_id >= 1 and level_id <= TOTAL_LEVELS,
+		"SaveData.set_current_level: level_id out of range (%d)." % level_id
+	)
+	_current_level = level_id
+	_save()
 
 
 ## Records a completed level. Per spec §9 a star rating is never decreased:
@@ -289,6 +310,7 @@ func _apply_defaults() -> void:
 	_next_regen_utc = 0
 	_sound_enabled  = true
 	_music_enabled  = true
+	_current_level  = 1
 
 
 ## Serialises current in-memory state and writes it to save_path.
@@ -302,6 +324,7 @@ func _save() -> void:
 		"next_regen_utc" : _next_regen_utc,
 		"sound_enabled"  : _sound_enabled,
 		"music_enabled"  : _music_enabled,
+		"current_level"  : _current_level,
 	}
 	var file := FileAccess.open(save_path, FileAccess.WRITE)
 	if file == null:
@@ -430,6 +453,14 @@ func _deserialize(data: Dictionary) -> bool:
 	var tmp_sound: bool = bool(data.get("sound_enabled", true))
 	var tmp_music: bool = bool(data.get("music_enabled", true))
 
+	# ── Current level (lenient: default to 1 if key missing or out of range) ──
+	var cl_val = data.get("current_level", 1)
+	var tmp_current_level: int = 1
+	if cl_val is int or cl_val is float:
+		var cl_int := int(cl_val)
+		if cl_int >= 1 and cl_int <= TOTAL_LEVELS:
+			tmp_current_level = cl_int
+
 	# ── Atomic commit (all fields validated; apply together) ──────────────────
 	_stars          = tmp_stars
 	_seeds          = tmp_seeds
@@ -437,5 +468,6 @@ func _deserialize(data: Dictionary) -> bool:
 	_next_regen_utc = tmp_regen
 	_sound_enabled  = tmp_sound
 	_music_enabled  = tmp_music
+	_current_level  = tmp_current_level
 
 	return true

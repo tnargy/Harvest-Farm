@@ -99,6 +99,15 @@ Note: `BoardController.TurnResult.seeds_earned` already tracks per-turn seed inc
 
 ## Layer 6 — Gameplay Scene
 
+**Status:** ✅ — Implementation complete and verified (5/5 manual tests passed).
+
+| System | File(s) |
+|--------|---------|
+| Piece visual | `scripts/gameplay/PieceNode.gd`, `scenes/gameplay/PieceNode.tscn` |
+| Board grid | `scripts/gameplay/BoardGrid.gd`, `scenes/gameplay/BoardGrid.tscn` |
+| HUD bar | `scripts/gameplay/HudBar.gd`, `scenes/gameplay/HudBar.tscn` |
+| Gameplay scene | `scripts/gameplay/GameplayScene.gd`, `scenes/gameplay/GameplayScene.tscn` |
+
 The board UI. Largest single piece of work.
 
 ### Responsibilities

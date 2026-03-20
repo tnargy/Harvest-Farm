@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://levelselect001"]
+
+[ext_resource type="Script" path="res://scripts/ui/LevelSelect.gd" id="1"]
+
+[node name="LevelSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.129, 0.18, 0.078, 1)
+
+[node name="Header" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 1.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="BackButton" type="Button" parent="Header"]
+layout_mode = 2
+custom_minimum_size = Vector2(80, 40)
+text = "← Back"
+theme_override_font_sizes/font_size = 16
+
+[node name="TitleLabel" type="Label" parent="Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Select Level"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+
+[node name="SeedBalanceBar" type="HBoxContainer" parent="Header"]
+layout_mode = 2
+alignment = 2
+theme_override_constants/separation = 8
+
+[node name="LivesIcon" type="Label" parent="Header/SeedBalanceBar"]
+layout_mode = 2
+text = "❤️"
+theme_override_font_sizes/font_size = 16
+
+[node name="LivesLabel" type="Label" parent="Header/SeedBalanceBar"]
+layout_mode = 2
+custom_minimum_size = Vector2(32, 0)
+text = "3"
+theme_override_font_sizes/font_size = 16
+
+[node name="SeedIcon" type="Label" parent="Header/SeedBalanceBar"]
+layout_mode = 2
+text = "🌱"
+theme_override_font_sizes/font_size = 16
+
+[node name="SeedBalanceLabel" type="Label" parent="Header/SeedBalanceBar"]
+layout_mode = 2
+custom_minimum_size = Vector2(40, 0)
+text = "0"
+theme_override_font_sizes/font_size = 16
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelGrid" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 5
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8

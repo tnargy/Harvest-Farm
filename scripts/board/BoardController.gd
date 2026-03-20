@@ -133,6 +133,15 @@ func init(
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
+## Performs the initial gravity + refill pass to populate empty cells at the
+## start of a level run. Call this once after init(), before rendering the board.
+## Cells that already have a starting_piece are left untouched; only empty
+## fillable cells are filled.
+func initial_fill() -> void:
+	var gravity_result := _gravity_system.calculate(board, level_data, _collected, rng)
+	_apply_gravity_result(gravity_result)
+
+
 ## Attempts a player swap between the two given cell coordinates.
 ##
 ## Returns a TurnResult describing what happened. The caller should read

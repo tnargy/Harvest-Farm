@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://bfailscreen01"]
+
+[ext_resource type="Script" path="res://scripts/ui/FailScreen.gd" id="1"]
+
+[node name="FailScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.18, 0.09, 0.09, 1)
+
+[node name="SeedBalanceBar" type="HBoxContainer" parent="."]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -130.0
+offset_bottom = 44.0
+grow_horizontal = 0
+
+[node name="SeedIcon" type="Label" parent="SeedBalanceBar"]
+layout_mode = 2
+text = "🌱"
+
+[node name="SeedBalanceLabel" type="Label" parent="SeedBalanceBar"]
+layout_mode = 2
+text = "0"
+theme_override_font_sizes/font_size = 16
+
+[node name="ContentContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_top = 60.0
+offset_right = 170.0
+offset_bottom = 600.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="ContentContainer"]
+layout_mode = 2
+text = "Level Failed"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 30
+
+[node name="GoalsContainer" type="VBoxContainer" parent="ContentContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LivesDisplay" type="HBoxContainer" parent="ContentContainer"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="LivesLabel" type="Label" parent="ContentContainer/LivesDisplay"]
+layout_mode = 2
+text = "Lives: 3 / 3"
+theme_override_font_sizes/font_size = 16
+
+[node name="RegenLabel" type="Label" parent="ContentContainer/LivesDisplay"]
+layout_mode = 2
+visible = false
+text = "Next life in 15:00"
+theme_override_font_sizes/font_size = 14
+modulate = Color(1, 1, 1, 0.7)
+
+[node name="ButtonRow" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -220.0
+offset_right = 160.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+theme_override_constants/separation = 12
+
+[node name="RetryButton" type="Button" parent="ButtonRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 52)
+text = "Retry"
+theme_override_font_sizes/font_size = 18
+
+[node name="BuyLifeButton" type="Button" parent="ButtonRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 52)
+visible = false
+text = "Buy Life (30 🌱)"
+theme_override_font_sizes/font_size = 18
+
+[node name="LevelSelectButton" type="Button" parent="ButtonRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(300, 52)
+text = "Level Select"
+theme_override_font_sizes/font_size = 18

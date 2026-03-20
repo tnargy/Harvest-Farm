@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvhudbar00001"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/HudBar.gd" id="1_hudgd"]
+
+[node name="HudBar" type="Panel"]
+anchor_right = 1.0
+script = ExtResource("1_hudgd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TitleRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer/TitleRow"]
+layout_mode = 2
+text = "Level 0"
+
+[node name="StatsRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TurnsBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TurnsCaption" type="Label" parent="MarginContainer/VBoxContainer/StatsRow/TurnsBox"]
+layout_mode = 2
+text = "TURNS"
+theme_override_font_sizes/font_size = 10
+
+[node name="TurnsValue" type="Label" parent="MarginContainer/VBoxContainer/StatsRow/TurnsBox"]
+layout_mode = 2
+text = "0"
+theme_override_font_sizes/font_size = 20
+
+[node name="ScoreBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreCaption" type="Label" parent="MarginContainer/VBoxContainer/StatsRow/ScoreBox"]
+layout_mode = 2
+text = "SCORE"
+theme_override_font_sizes/font_size = 10
+
+[node name="ScoreValue" type="Label" parent="MarginContainer/VBoxContainer/StatsRow/ScoreBox"]
+layout_mode = 2
+text = "0"
+theme_override_font_sizes/font_size = 20
+
+[node name="SeedsBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SeedsCaption" type="Label" parent="MarginContainer/VBoxContainer/StatsRow/SeedsBox"]
+layout_mode = 2
+text = "SEEDS"
+theme_override_font_sizes/font_size = 10
+
+[node name="SeedsValue" type="Label" parent="MarginContainer/VBoxContainer/StatsRow/SeedsBox"]
+layout_mode = 2
+text = "0"
+theme_override_font_sizes/font_size = 20
+
+[node name="GoalsList" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2

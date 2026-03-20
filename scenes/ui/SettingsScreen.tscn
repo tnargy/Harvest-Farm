@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://bsettings00001"]
+
+[ext_resource type="Script" uid="uid://csetscript0001" path="res://scripts/ui/SettingsScreen.gd" id="1_set"]
+
+[node name="SettingsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_set")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.129, 0.18, 0.078, 1)
+
+[node name="Header" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 390.0
+offset_bottom = 60.0
+
+[node name="BackButton" type="Button" parent="Header"]
+layout_mode = 2
+text = "← Back"
+
+[node name="TitleLabel" type="Label" parent="Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Settings"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+
+[node name="ContentContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 80.0
+offset_right = 366.0
+offset_bottom = 740.0
+theme_override_constants/separation = 24
+
+[node name="SoundRow" type="HBoxContainer" parent="ContentContainer"]
+layout_mode = 2
+
+[node name="SoundLabel" type="Label" parent="ContentContainer/SoundRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sound Effects"
+theme_override_font_sizes/font_size = 18
+
+[node name="SoundToggle" type="CheckButton" parent="ContentContainer/SoundRow"]
+layout_mode = 2
+button_pressed = true
+
+[node name="MusicRow" type="HBoxContainer" parent="ContentContainer"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="ContentContainer/MusicRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music"
+theme_override_font_sizes/font_size = 18
+
+[node name="MusicToggle" type="CheckButton" parent="ContentContainer/MusicRow"]
+layout_mode = 2
+button_pressed = true
+
+[node name="ResetRow" type="VBoxContainer" parent="ContentContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ResetButton" type="Button" parent="ContentContainer/ResetRow"]
+layout_mode = 2
+text = "Reset Progress"
+theme_override_font_sizes/font_size = 16
+
+[node name="ConfirmContainer" type="HBoxContainer" parent="ContentContainer/ResetRow"]
+layout_mode = 2
+visible = false
+theme_override_constants/separation = 8
+
+[node name="ConfirmLabel" type="Label" parent="ContentContainer/ResetRow/ConfirmContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "This will erase ALL progress. Are you sure?"
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 14
+
+[node name="ConfirmYesButton" type="Button" parent="ContentContainer/ResetRow/ConfirmContainer"]
+layout_mode = 2
+text = "Yes, Reset"
+
+[node name="ConfirmNoButton" type="Button" parent="ContentContainer/ResetRow/ConfirmContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -28.0
+offset_right = 390.0
+grow_vertical = 0
+text = "Harvest Match v1.1"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+modulate = Color(1, 1, 1, 0.4)

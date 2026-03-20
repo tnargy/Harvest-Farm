@@ -16,6 +16,7 @@ extends Node
 
 var _balance: Balance = null
 var _save = null  # will point to the SaveData autoload
+var _regen_timer: Timer = null
 
 func _ready() -> void:
 	_balance = load("res://resources/balance.tres") as Balance
@@ -24,6 +25,11 @@ func _ready() -> void:
 	# SaveData is registered as an autoload named SaveData in project.godot
 	_save = SaveData
 	_reconcile_regen()
+	_regen_timer = Timer.new()
+	_regen_timer.one_shot = true
+	add_child(_regen_timer)
+	_regen_timer.timeout.connect(_on_regen_timer_timeout)
+	_schedule_regen_timer()
 
 
 # Public API ---------------------------------------------------------------
@@ -54,7 +60,7 @@ func consume_life() -> bool:
 		var now = int(Time.get_unix_time_from_system())
 		var interval = int(_balance.LIFE_REGEN_MINUTES) * 60
 		_save.set_next_regen_utc(now + interval)
-
+	_schedule_regen_timer()
 	return true
 
 
@@ -84,7 +90,7 @@ func purchase_life_with_seeds() -> bool:
 		var now = int(Time.get_unix_time_from_system())
 		var interval = int(_balance.LIFE_REGEN_MINUTES) * 60
 		_save.set_next_regen_utc(now + interval)
-
+	_schedule_regen_timer()
 	return true
 
 
@@ -98,6 +104,7 @@ func add_lives(count: int) -> void:
 	_save.set_lives(new)
 	if new >= int(_balance.MAX_LIVES):
 		_save.set_next_regen_utc(0)
+	_schedule_regen_timer()
 
 
 # Returns seconds remaining until the next scheduled life regeneration tick.
@@ -117,6 +124,21 @@ func force_reconcile() -> void:
 
 
 # Private helpers ---------------------------------------------------------
+
+func _schedule_regen_timer() -> void:
+	var next: int = _save.get_next_regen_utc()
+	if next == 0:
+		_regen_timer.stop()
+		return
+	var now: int = int(Time.get_unix_time_from_system())
+	var wait: float = max(1.0, float(next - now))
+	_regen_timer.start(wait)
+
+
+func _on_regen_timer_timeout() -> void:
+	_reconcile_regen()
+	_schedule_regen_timer()
+
 
 # Reconcile saved regen timestamp with the current time.
 # Grants missed lives (possibly multiple) based on elapsed intervals and advances/clears the timestamp.

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://1nrcnv0merf1"]
+
+[ext_resource type="Script" uid="uid://cvxwyemqn8hf8" path="res://scripts/gameplay/GameplayScene.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://bvhudbar00001" path="res://scenes/gameplay/HudBar.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://cboardgrid001" path="res://scenes/gameplay/BoardGrid.tscn" id="3"]
+
+[node name="GameplayScene" type="Control" unique_id=309495441]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1588392953]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.172, 0.243, 0.102, 1)
+
+[node name="HudBar" parent="." unique_id=582398852 instance=ExtResource("2")]
+layout_mode = 0
+anchor_right = 0.0
+offset_left = 58.0
+offset_right = 58.0
+offset_bottom = 160.0
+
+[node name="BoardContainer" type="Control" parent="." unique_id=1597852934]
+clip_contents = true
+anchors_preset = 0
+anchor_right = 1.0
+offset_top = 160.0
+offset_bottom = 560.0
+
+[node name="BoardGrid" parent="BoardContainer" unique_id=1450794376 instance=ExtResource("3")]
+anchors_preset = 0
+offset_left = -5.0
+offset_right = -5.0
