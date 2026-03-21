@@ -41,11 +41,7 @@ Level `.tres` files authored to the schema defined in `LevelData.gd`. The valida
 
 | Levels | Status |
 |--------|--------|
-| Level 1 | ✅ |
-| Level 8 | ✅ |
-| Level 20 | ✅ |
-| Levels 2–7 | 🔲 |
-| Levels 9–19 | 🔲 |
+| Levels 1–20 | ✅ |
 | Levels 21–50 | 🔲 |
 
 **Dependency:** none — pure content work, no code changes required.
