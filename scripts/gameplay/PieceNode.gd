@@ -39,6 +39,8 @@ var is_special: bool   = false
 var obstacle:   String = "none"
 var flower_hp:  int    = 0
 
+var _hint_tween: Tween = null
+
 # ── Child refs ────────────────────────────────────────────────────────────────
 @onready var _panel: Panel = $Panel
 @onready var _label: Label = $Panel/Label
@@ -146,3 +148,26 @@ func animate_bounce(direction: Vector2) -> Tween:
     tw.tween_property(self, "position", origin, 0.12)\
         .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
     return tw
+
+
+# ── Hint ──────────────────────────────────────────────────────────────────────
+
+## Starts a looping scale pulse to signal a valid swap hint.
+## Safe to call repeatedly — clears any existing hint tween first.
+func show_hint() -> void:
+    clear_hint()
+    pivot_offset = size / 2.0
+    _hint_tween = create_tween().set_loops()
+    _hint_tween.tween_property(self, "scale", Vector2(1.18, 1.18), 0.45)\
+        .set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+    _hint_tween.tween_property(self, "scale", Vector2.ONE, 0.45)\
+        .set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+
+
+## Stops the hint pulse and restores normal appearance.
+func clear_hint() -> void:
+    if _hint_tween != null and _hint_tween.is_valid():
+        _hint_tween.kill()
+    _hint_tween = null
+    scale    = Vector2.ONE
+    modulate = Color.WHITE

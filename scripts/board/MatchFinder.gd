@@ -150,6 +150,24 @@ func has_any_valid_swap(board: BoardState) -> bool:
 						return true
 	return false
 
+## Returns a random valid swap pair as {a: Vector2i, b: Vector2i},
+## or an empty Dictionary if no valid swaps exist.
+## rng is used to pick among all valid pairs uniformly at random.
+func get_random_valid_swap(board: BoardState, rng: RandomNumberGenerator) -> Dictionary:
+	var pairs: Array = []
+	for row in range(BoardState.GRID_SIZE):
+		for col in range(BoardState.GRID_SIZE):
+			for offset in [Vector2i(0, 1), Vector2i(1, 0)]:
+				var a := Vector2i(row, col)
+				var b : Vector2i = a + offset
+				if board.is_in_bounds(b.x, b.y):
+					if would_swap_create_match(board, a, b):
+						pairs.append([a, b])
+	if pairs.is_empty():
+		return {}
+	var chosen: Array = pairs[rng.randi_range(0, pairs.size() - 1)]
+	return {"a": chosen[0], "b": chosen[1]}
+
 
 # ── Internal detection ────────────────────────────────────────────────────────
 

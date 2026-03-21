@@ -138,7 +138,7 @@ func init(
 ## Cells that already have a starting_piece are left untouched; only empty
 ## fillable cells are filled.
 func initial_fill() -> void:
-	var gravity_result := _gravity_system.calculate(board, level_data, _collected, rng)
+	var gravity_result := _gravity_system.calculate(board, level_data, _collected, rng, true)
 	_apply_gravity_result(gravity_result)
 
 
@@ -444,6 +444,8 @@ func attempt_swap(cell_a: Vector2i, cell_b: Vector2i) -> TurnResult:
 	if goal_tracker.all_goals_complete():
 		result.win = true
 	elif board.turns_remaining <= 0:
+		result.fail = true
+	elif not _match_finder.has_any_valid_swap(board):
 		result.fail = true
 
 	return result

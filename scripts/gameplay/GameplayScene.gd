@@ -43,6 +43,11 @@ var _drag_start_cell: Vector2i = Vector2i(-1, -1)
 var _drag_start_pos:  Vector2  = Vector2.ZERO
 var _animating:       bool     = false
 
+# ── Hint state ────────────────────────────────────────────────────────────────
+var _hint_timer: Timer = null
+var _hint_rng:   RandomNumberGenerator = null
+var _hint_match_finder: MatchFinder = null
+
 # ── Lifecycle ─────────────────────────────────────────────────────────────────
 
 func _ready() -> void:
@@ -72,6 +77,17 @@ func _ready() -> void:
 
 	_board_grid.setup(_board_state)
 	_hud_bar.setup(_level_data, _board_state, _board_controller.goal_tracker)
+
+	_hint_rng = RandomNumberGenerator.new()
+	_hint_rng.randomize()
+	_hint_match_finder = MatchFinder.new()
+
+	_hint_timer = Timer.new()
+	_hint_timer.one_shot = true
+	_hint_timer.wait_time = _balance.HINT_DELAY_SECONDS
+	_hint_timer.timeout.connect(_on_hint_timer_timeout)
+	add_child(_hint_timer)
+	_hint_timer.start()
 
 
 # ── Input ─────────────────────────────────────────────────────────────────────
@@ -151,6 +167,9 @@ func _do_swap(cell_a: Vector2i, cell_b: Vector2i) -> void:
 		return
 	_animating = true
 
+	_board_grid.clear_hint()
+	_hint_timer.stop()
+
 	var result := _board_controller.attempt_swap(cell_a, cell_b)
 
 	if result.accepted:
@@ -166,3 +185,20 @@ func _do_swap(cell_a: Vector2i, cell_b: Vector2i) -> void:
 		emit_signal("level_won", result)
 	elif result.fail:
 		emit_signal("level_failed", result)
+	else:
+		_hint_timer.start(_balance.HINT_DELAY_SECONDS)
+
+
+# ── Hint ──────────────────────────────────────────────────────────────────────
+
+func _on_hint_timer_timeout() -> void:
+	# Sanity guard: board should never still be animating here, but defend anyway.
+	if _animating:
+		_hint_timer.start(_balance.HINT_DELAY_SECONDS)
+		return
+
+	var swap := _hint_match_finder.get_random_valid_swap(_board_state, _hint_rng)
+	if swap.is_empty():
+		return
+
+	_board_grid.show_hint(swap["a"], swap["b"])

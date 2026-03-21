@@ -32,6 +32,11 @@ extends Resource
 ## Maximum total cascade multiplier regardless of chain length.
 @export var CASCADE_MULTIPLIER_CAP: float = 3.0
 
+# ── Hint System ───────────────────────────────────────────────────────────────
+
+## Seconds of player inactivity before a valid-swap hint is shown on the board.
+@export var HINT_DELAY_SECONDS: float = 30.0
+
 # ── Lives System ──────────────────────────────────────────────────────────────
 
 ## Minutes of real-world time between each life regeneration tick.
@@ -130,6 +135,8 @@ func validate() -> Array[String]:
 		errors.append("CASCADE_MULTIPLIER_CAP is lower than one chain step would produce — check both values.")
 	if LIFE_REGEN_MINUTES <= 0:
 		errors.append("LIFE_REGEN_MINUTES must be greater than 0.")
+	if HINT_DELAY_SECONDS <= 0.0:
+		errors.append("HINT_DELAY_SECONDS must be greater than 0.")
 	if MAX_LIVES <= 0:
 		errors.append("MAX_LIVES must be greater than 0.")
 	if SCORE_MATCH_3_PER_PIECE <= 0:

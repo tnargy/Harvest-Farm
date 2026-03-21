@@ -24,6 +24,9 @@ const BG_CELL_COLOR_B := Color("355226")   # slightly darker green (checkerboard
 ## Vector2i → PieceNode. Only active cells with a piece have an entry.
 var _pieces: Dictionary = {}
 
+## Cells currently showing the swap hint. Cleared on the next swap or new hint.
+var _hint_cells: Array[Vector2i] = []
+
 # ── Setup ─────────────────────────────────────────────────────────────────────
 
 ## Full initial build from a BoardState. Non-animated.
@@ -78,6 +81,25 @@ func _spawn_piece_node(row: int, col: int, cs: BoardState.CellState) -> Node:
 	return node
 
 # ── Public animation entry point ──────────────────────────────────────────────
+
+## Highlights two cells as a swap hint. Clears any previous hint first.
+func show_hint(cell_a: Vector2i, cell_b: Vector2i) -> void:
+	clear_hint()
+	_hint_cells = [cell_a, cell_b]
+	for cell in _hint_cells:
+		var node: PieceNode = _pieces.get(cell)
+		if node != null:
+			node.show_hint()
+
+
+## Removes the hint pulse from any previously hinted cells.
+func clear_hint() -> void:
+	for cell in _hint_cells:
+		var node: PieceNode = _pieces.get(cell)
+		if node != null:
+			node.clear_hint()
+	_hint_cells.clear()
+
 
 ## Called by GameplayScene after attempt_swap() returns.
 ## Runs the full visual sequence and returns when all animations are done.

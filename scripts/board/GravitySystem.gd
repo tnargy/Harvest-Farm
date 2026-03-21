@@ -75,6 +75,10 @@ class GravityResult:
 ##   rng          – Optional RandomNumberGenerator. If null, a new one is
 ##                  created and randomised. Inject a seeded RNG in tests for
 ##                  deterministic output.
+##   avoid_initial_matches – When true, fills cells in row-major order and
+##                  rejects crops that would form a 3-in-a-row with already-placed
+##                  neighbors. Use for the initial board fill only; mid-level
+##                  refills intentionally allow matches (they cascade and score).
 ##
 ## Returns a GravityResult containing all moves and fills needed to bring the
 ## board to its settled, fully-filled state.
@@ -82,7 +86,8 @@ func calculate(
 	board: BoardState,
 	level_data: LevelData,
 	collected: Dictionary,
-	rng: RandomNumberGenerator
+	rng: RandomNumberGenerator,
+	avoid_initial_matches: bool = false
 ) -> GravityResult:
 	if rng == null:
 		rng = RandomNumberGenerator.new()
@@ -96,10 +101,19 @@ func calculate(
 
 	for col in range(BoardState.GRID_SIZE):
 		var col_moves := _apply_gravity_column(board, col)
-		var col_fills := _apply_refill_column(board, col, col_moves, weighted_crops, rng)
-
 		all_moves.append_array(col_moves)
-		all_fills.append_array(col_fills)
+
+	if avoid_initial_matches:
+		all_fills = _fill_match_aware(board, all_moves, weighted_crops, rng)
+	else:
+		for col in range(BoardState.GRID_SIZE):
+			# Collect only this column's moves for the per-column fill helper.
+			var col_moves: Array[Dictionary] = []
+			for mv in all_moves:
+				if mv["from"].y == col:
+					col_moves.append(mv)
+			var col_fills := _apply_refill_column(board, col, col_moves, weighted_crops, rng)
+			all_fills.append_array(col_fills)
 
 	return GravityResult.new(all_moves, all_fills)
 
@@ -302,6 +316,97 @@ func _apply_refill_column(
 
 	# fills is already in top-to-bottom order because we iterated row 0 → 7.
 	return fills
+
+
+# ── Match-aware initial fill ──────────────────────────────────────────────────
+
+## Fills all empty fillable cells in row-major order (top-left → bottom-right),
+## rejecting crops that would complete a 3-in-a-row with already-placed
+## neighbors. Because the scan is strictly left-to-right, top-to-bottom, only
+## the two cells to the left and two cells above can already be decided — those
+## are the only neighbors that need checking.
+func _fill_match_aware(
+	board: BoardState,
+	all_moves: Array[Dictionary],
+	weighted_crops: Array[String],
+	rng: RandomNumberGenerator
+) -> Array[Dictionary]:
+	if weighted_crops.is_empty():
+		return []
+
+	# Build a virtual board: Vector2i → crop String for all post-gravity pieces.
+	var virtual: Dictionary = {}
+
+	var moved_from: Dictionary = {}
+	for mv in all_moves:
+		moved_from[mv["from"]] = true
+
+	for row in range(BoardState.GRID_SIZE):
+		for col in range(BoardState.GRID_SIZE):
+			var coord := Vector2i(row, col)
+			var cs: BoardState.CellState = board.get_cell(row, col)
+			if cs.has_piece() and not moved_from.has(coord):
+				virtual[coord] = cs.piece
+
+	for mv in all_moves:
+		virtual[mv["to"]] = mv["piece"]
+
+	# Fill empty fillable cells in row-major order, avoiding matches.
+	var fills: Array[Dictionary] = []
+	for row in range(BoardState.GRID_SIZE):
+		for col in range(BoardState.GRID_SIZE):
+			var coord := Vector2i(row, col)
+			var cs: BoardState.CellState = board.get_cell(row, col)
+			if not cs.can_hold_piece() or virtual.has(coord):
+				continue
+			var forbidden := _forbidden_crops(virtual, row, col)
+			var crop := _pick_avoiding(weighted_crops, forbidden, rng)
+			virtual[coord] = crop
+			fills.append({"cell": coord, "piece": crop})
+
+	return fills
+
+
+## Returns a Dictionary (crop → true) of crops that would complete a
+## horizontal or vertical 3-in-a-row at (row, col) given the virtual board.
+## Only checks the two cells to the left and two cells above — the row-major
+## fill order guarantees no cells to the right or below are placed yet.
+func _forbidden_crops(virtual: Dictionary, row: int, col: int) -> Dictionary:
+	var forbidden: Dictionary = {}
+
+	var l1: String = virtual.get(Vector2i(row, col - 1), "")
+	var l2: String = virtual.get(Vector2i(row, col - 2), "")
+	if l1 != "" and l1 == l2:
+		forbidden[l1] = true
+
+	var u1: String = virtual.get(Vector2i(row - 1, col), "")
+	var u2: String = virtual.get(Vector2i(row - 2, col), "")
+	if u1 != "" and u1 == u2:
+		forbidden[u1] = true
+
+	return forbidden
+
+
+## Picks a crop from weighted_crops that is not in forbidden.
+## Falls back to an unconstrained pick if every crop is forbidden
+## (only possible when crop_set has fewer than 3 types).
+func _pick_avoiding(
+	weighted_crops: Array[String],
+	forbidden: Dictionary,
+	rng: RandomNumberGenerator
+) -> String:
+	if forbidden.is_empty():
+		return _pick_weighted(weighted_crops, rng)
+
+	var allowed: Array[String] = []
+	for crop in weighted_crops:
+		if not forbidden.has(crop):
+			allowed.append(crop)
+
+	if allowed.is_empty():
+		return _pick_weighted(weighted_crops, rng)
+
+	return allowed[rng.randi_range(0, allowed.size() - 1)]
 
 
 # ── Weighted random pick ──────────────────────────────────────────────────────
