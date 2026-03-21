@@ -1,19 +1,17 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level20"]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level19"]
 [ext_resource type="Script" path="res://scripts/resources/LevelData.gd" id="1_leveldata"]
 [resource]
 script = ExtResource("1_leveldata")
-level_id = 20
+level_id = 19
 turn_limit = 32
-star_threshold_2 = 22
-star_threshold_3 = 28
+star_threshold_2 = 21
+star_threshold_3 = 27
 crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato", "eggplant", "radish", "cucumber", "pumpkin-gold"]
 goals = [
-    { "type": "score", "target": 2600 },
+    { "type": "score", "target": 2500 },
     { "type": "survival", "turns": 10 },
     { "type": "collect_crop", "crop": "strawberry", "target": 12 },
-    { "type": "collect_crop", "crop": "tomato", "target": 12 },
-    { "type": "protect_crop", "crop": "cucumber", "turns": 5 },
-    { "type": "time_bonus", "turns": 22 }
+    { "type": "collect_crop", "crop": "tomato", "target": 12 }
 ]
 grid_layout = [
     [{"active":true,"obstacle":"wall"}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"water"}, {"active":false}, {"active":false}],
@@ -22,13 +20,13 @@ grid_layout = [
 [{"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
 [{"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"wall"}],
 [{"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"wall"}],
-[{"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"wall"}],
-[{"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"wall"}, {"active":false}, {"active":false}, {"active":false}]
+[{"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"wall"}],
+[{"active":false}, {"active":false}, {"active":true,"obstacle":"water"}, {"active":true,"obstacle":"wall"}, {"active":true,"obstacle":"wall"}, {"active":false}, {"active":false}, {"active":false}]
 ]
 seed_reward_3star = 25
 score_overrides = {}
 meta = {
     "author": "designer",
     "version": "1.0",
-    "notes": "Level 20 – final boss: all mechanics combined."
+    "notes": "Level 19 – survival goal added."
 }

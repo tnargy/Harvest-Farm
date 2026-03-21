@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level02"]
+[ext_resource type="Script" path="res://scripts/resources/LevelData.gd" id="1_leveldata"]
+[resource]
+script = ExtResource("1_leveldata")
+level_id = 2
+turn_limit = 21
+star_threshold_2 = 9
+star_threshold_3 = 15
+crop_set = ["strawberry", "carrot", "corn", "sunflower"]
+goals = [
+    { "type": "score", "target": 900 }
+]
+grid_layout = [
+    [{"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":false}, {"active":false}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}]
+]
+seed_reward_3star = 25
+score_overrides = {}
+meta = {
+    "author": "designer",
+    "version": "1.0",
+    "notes": "Level 2 – introduces a small dirt patch to teach clearing."
+}

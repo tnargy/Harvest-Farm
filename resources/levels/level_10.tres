@@ -1,21 +1,20 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level08"]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level10"]
 [ext_resource type="Script" path="res://scripts/resources/LevelData.gd" id="1_leveldata"]
 [resource]
 script = ExtResource("1_leveldata")
-level_id = 8
-turn_limit = 25
-star_threshold_2 = 10
-star_threshold_3 = 16
-crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato"]
+level_id = 10
+turn_limit = 27
+star_threshold_2 = 12
+star_threshold_3 = 18
+crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato", "eggplant"]
 goals = [
-    { "type": "score", "target": 1500 },
-    { "type": "collect_crop", "crop": "strawberry", "target": 12 },
-    { "type": "clear_dirt" }
+    { "type": "score", "target": 1600 },
+    { "type": "time_bonus", "turns": 22 }
 ]
 grid_layout = [
     [{"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}],
-[{"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
-[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
 [{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}],
 [{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"none"}],
 [{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"none"}],
@@ -27,5 +26,5 @@ score_overrides = {}
 meta = {
     "author": "designer",
     "version": "1.0",
-    "notes": "Level 8 – baseline reference (your existing level)."
+    "notes": "Level 10 – adds time‑bonus star."
 }

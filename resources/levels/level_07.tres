@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level08"]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level07"]
 [ext_resource type="Script" path="res://scripts/resources/LevelData.gd" id="1_leveldata"]
 [resource]
 script = ExtResource("1_leveldata")
-level_id = 8
+level_id = 7
 turn_limit = 25
-star_threshold_2 = 10
-star_threshold_3 = 16
-crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato"]
+star_threshold_2 = 14
+star_threshold_3 = 20
+crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato", "lettuce", "pumpkin"]
 goals = [
-    { "type": "score", "target": 1500 },
+    { "type": "score", "target": 1400 },
     { "type": "collect_crop", "crop": "strawberry", "target": 12 },
     { "type": "clear_dirt" }
 ]
@@ -19,13 +19,13 @@ grid_layout = [
 [{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}],
 [{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"none"}],
 [{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"none"}],
-[{"active":false}, {"active":false}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"none"}],
-[{"active":false}, {"active":false}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}]
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}]
 ]
 seed_reward_3star = 25
 score_overrides = {}
 meta = {
     "author": "designer",
     "version": "1.0",
-    "notes": "Level 8 – baseline reference (your existing level)."
+    "notes": "Level 7 – adds pumpkin to crop pool."
 }

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level03"]
+[ext_resource type="Script" path="res://scripts/resources/LevelData.gd" id="1_leveldata"]
+[resource]
+script = ExtResource("1_leveldata")
+level_id = 3
+turn_limit = 22
+star_threshold_2 = 10
+star_threshold_3 = 16
+crop_set = ["strawberry", "carrot", "corn", "sunflower"]
+goals = [
+    { "type": "score", "target": 1000 }
+]
+grid_layout = [
+    [{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}]
+]
+seed_reward_3star = 25
+score_overrides = {}
+meta = {
+    "author": "designer",
+    "version": "1.0",
+    "notes": "Level 3 – introduces inactive cells (holes)."
+}

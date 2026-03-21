@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level04"]
+[ext_resource type="Script" path="res://scripts/resources/LevelData.gd" id="1_leveldata"]
+[resource]
+script = ExtResource("1_leveldata")
+level_id = 4
+turn_limit = 23
+star_threshold_2 = 11
+star_threshold_3 = 17
+crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato"]
+goals = [
+    { "type": "score", "target": 1100 }
+]
+grid_layout = [
+    [{"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}],
+[{"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}]
+]
+seed_reward_3star = 25
+score_overrides = {}
+meta = {
+    "author": "designer",
+    "version": "1.0",
+    "notes": "Level 4 – first collect‑goal (tomato appears)."
+}

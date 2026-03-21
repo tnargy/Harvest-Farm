@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://level14"]
+[ext_resource type="Script" path="res://scripts/resources/LevelData.gd" id="1_leveldata"]
+[resource]
+script = ExtResource("1_leveldata")
+level_id = 14
+turn_limit = 29
+star_threshold_2 = 16
+star_threshold_3 = 22
+crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato", "eggplant", "radish"]
+goals = [
+    { "type": "score", "target": 2000 },
+    { "type": "collect_crop", "crop": "strawberry", "target": 12 },
+    { "type": "clear_dirt" },
+    { "type": "time_bonus", "turns": 22 }
+]
+grid_layout = [
+    [{"active":true,"obstacle":"wall"}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"wall"}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":false}],
+[{"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}, {"active":true,"obstacle":"dirt"}, {"active":false}, {"active":false}],
+[{"active":true,"obstacle":"wall"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"wall"}],
+[{"active":true,"obstacle":"wall"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"wall"}],
+[{"active":false}, {"active":false}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}, {"active":false}, {"active":false}, {"active":true,"obstacle":"wall"}],
+[{"active":false}, {"active":false}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":true,"obstacle":"none"}, {"active":false}]
+]
+seed_reward_3star = 25
+score_overrides = {}
+meta = {
+    "author": "designer",
+    "version": "1.0",
+    "notes": "Level 14 – combines walls & time‑bonus."
+}
