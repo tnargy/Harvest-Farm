@@ -3,12 +3,29 @@ extends Control
 
 ## PieceNode.gd
 ## Visual representation of one board piece.
-## Art is a plain colour block (placeholder). Obstacle/special state is shown
-## as a text glyph overlay on the Label child.
+## Pieces with a matching asset in assets/pieces/ show a sprite; others fall
+## back to a plain colour block. Obstacle/special state is shown as a text
+## glyph overlay on the Label child.
 ## All animations are Tween-based and return the Tween so callers can await.
 
+# ── Piece → texture path ──────────────────────────────────────────────────────
+const PIECE_TEXTURES: Dictionary = {
+	"strawberry":    "res://assets/pieces/strawberry.png",
+	"carrot":        "res://assets/pieces/carrot.png",
+	"corn":          "res://assets/pieces/corn.png",
+	"sunflower":     "res://assets/pieces/sunflower.png",
+	"pumpkin":       "res://assets/pieces/pumpkin.png",
+	"tomato":        "res://assets/pieces/tomato.png",
+	"potato":        "res://assets/pieces/potato.png",
+	"cabbage":       "res://assets/pieces/cabbage.png",
+	"bushel_basket": "res://assets/pieces/basket.png",
+	"scarecrow":     "res://assets/pieces/scarecrow.png",
+	"watering_can":  "res://assets/pieces/wateringcan.png",
+	"wheelbarrow":   "res://assets/pieces/wheelbarrow.png",
+}
+
 # ── Piece → colour map ────────────────────────────────────────────────────────
-# These are visual-only constants — no balance dependency.
+# Used as fallback for pieces that have no texture asset.
 const PIECE_COLORS: Dictionary = {
     "strawberry":    Color("E53935"),
     "carrot":        Color("FB8C00"),
@@ -30,7 +47,8 @@ const OBSTACLE_COLORS: Dictionary = {
     "dirt":   Color("8D6E63"),
 }
 
-const EMPTY_COLOR   := Color("2A2A2A")
+const EMPTY_COLOR    := Color("2A2A2A")
+const NEUTRAL_COLOR  := Color("F5F0E8")  # soft parchment bg behind sprites
 const CORNER_RADIUS := 6
 
 # ── State ─────────────────────────────────────────────────────────────────────
@@ -42,8 +60,9 @@ var flower_hp:  int    = 0
 var _hint_tween: Tween = null
 
 # ── Child refs ────────────────────────────────────────────────────────────────
-@onready var _panel: Panel = $Panel
-@onready var _label: Label = $Panel/Label
+@onready var _panel:        Panel       = $Panel
+@onready var _texture_rect: TextureRect = $Panel/TextureRect
+@onready var _label:        Label       = $Panel/Label
 
 # ── Setup ─────────────────────────────────────────────────────────────────────
 
@@ -84,6 +103,23 @@ func _refresh_visual() -> void:
 
     _panel.add_theme_stylebox_override("panel", style)
     _label.text = _resolve_glyph()
+    _apply_texture()
+
+
+func _apply_texture() -> void:
+    if obstacle in ["rock", "flower"]:
+        # Obstacles: no sprite — use colour block
+        _texture_rect.texture = null
+        _texture_rect.hide()
+        return
+
+    var tex_path: String = PIECE_TEXTURES.get(piece_id, "")
+    if tex_path != "":
+        _texture_rect.texture = load(tex_path)
+        _texture_rect.show()
+    else:
+        _texture_rect.texture = null
+        _texture_rect.hide()
 
 
 func _resolve_color() -> Color:
@@ -91,6 +127,9 @@ func _resolve_color() -> Color:
         "rock":   return OBSTACLE_COLORS["rock"]
         "flower": return OBSTACLE_COLORS["flower"]
     if piece_id != "":
+        # Pieces with a sprite asset get a neutral parchment background.
+        if piece_id in PIECE_TEXTURES:
+            return NEUTRAL_COLOR
         return PIECE_COLORS.get(piece_id, Color("888888"))
     return EMPTY_COLOR
 
