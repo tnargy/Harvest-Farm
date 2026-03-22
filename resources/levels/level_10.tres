@@ -6,7 +6,7 @@ level_id = 10
 turn_limit = 27
 star_threshold_2 = 12
 star_threshold_3 = 18
-crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato", "eggplant"]
+crop_set = ["strawberry", "carrot", "corn", "tomato", "eggplant"]
 goals = [
     { "type": "score", "target": 1600 },
     { "type": "time_bonus", "turns": 22 }

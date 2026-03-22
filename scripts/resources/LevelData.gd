@@ -27,7 +27,7 @@ extends Resource
 # ── Crop Configuration ────────────────────────────────────────────────────────
 
 ## Array of crop type identifier strings active on this level's board.
-## Example: ["strawberry", "carrot", "corn", "sunflower"]
+## Example: ["strawberry", "carrot", "corn", "eggplant"]
 ## All identifiers must be non-empty strings.
 @export var crop_set: Array[String] = []
 

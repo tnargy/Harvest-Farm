@@ -6,7 +6,7 @@ level_id = 20
 turn_limit = 32
 star_threshold_2 = 22
 star_threshold_3 = 28
-crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato", "eggplant", "radish", "cucumber", "pumpkin-gold"]
+crop_set = ["strawberry", "carrot", "corn", "tomato", "eggplant", "radish", "cucumber", "pumpkin-gold"]
 goals = [
     { "type": "score", "target": 2600 },
     { "type": "survival", "turns": 10 },

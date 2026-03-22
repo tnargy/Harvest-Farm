@@ -6,7 +6,7 @@ level_id = 6
 turn_limit = 25
 star_threshold_2 = 13
 star_threshold_3 = 19
-crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato", "lettuce"]
+crop_set = ["strawberry", "carrot", "corn", "eggplant", "tomato", "lettuce"]
 goals = [
     { "type": "score", "target": 1300 },
     { "type": "collect_crop", "crop": "strawberry", "target": 12 },

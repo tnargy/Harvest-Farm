@@ -65,7 +65,7 @@ func _make_level(goals: Array) -> LevelData:
 	ld.turn_limit       = 20
 	ld.star_threshold_2 = 10
 	ld.star_threshold_3 = 5
-	ld.crop_set         = ["strawberry", "carrot", "corn", "sunflower"]
+	ld.crop_set         = ["strawberry", "carrot", "corn", "eggplant"]
 	ld.goals.assign(goals)
 	return ld
 
@@ -239,19 +239,19 @@ func _test_collect_crop_ignores_wrong_crop() -> void:
 	print("\n── %s ──" % _current_suite)
 
 	var tracker := _make_tracker()
-	tracker.init(_make_level([{"type": "collect_crop", "crop": "sunflower", "target": 4}]))
+	tracker.init(_make_level([{"type": "collect_crop", "crop": "eggplant", "target": 4}]))
 
-	# Clear lots of non-sunflower pieces — should not advance the goal.
+	# Clear lots of non-eggplant pieces — should not advance the goal.
 	var done := tracker.notify_pieces_cleared(
 		_mixed_pieces({"strawberry": 5, "carrot": 5, "corn": 5})
 	)
-	_assert(done.is_empty(), "no sunflowers cleared: goal not complete")
+	_assert(done.is_empty(), "no eggplants cleared: goal not complete")
 	_assert(tracker.get_progress(0) == 0, "progress remains 0 — wrong crops ignored")
 	_assert(not tracker.all_goals_complete(), "all_goals_complete false — goal not started")
 
 	# Now clear the target crop — should advance normally.
-	done = tracker.notify_pieces_cleared(_pieces("sunflower", 4))
-	_assert(done == [0], "4 sunflowers cleared: goal complete")
+	done = tracker.notify_pieces_cleared(_pieces("eggplant", 4))
+	_assert(done == [0], "4 eggplants cleared: goal complete")
 
 
 # ── Suite: collect_crop ignores special-piece identifiers ─────────────────────

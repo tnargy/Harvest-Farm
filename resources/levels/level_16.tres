@@ -6,7 +6,7 @@ level_id = 16
 turn_limit = 30
 star_threshold_2 = 18
 star_threshold_3 = 24
-crop_set = ["strawberry", "carrot", "corn", "sunflower", "tomato", "eggplant", "radish", "cucumber"]
+crop_set = ["strawberry", "carrot", "corn", "tomato", "eggplant", "radish", "cucumber"]
 goals = [
     { "type": "score", "target": 2200 },
     { "type": "protect_crop", "crop": "cucumber", "turns": 5 },

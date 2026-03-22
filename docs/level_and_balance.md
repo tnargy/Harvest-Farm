@@ -151,7 +151,7 @@ Crop identifiers are plain lowercase strings. The spec defines the following pro
 
 | Introduced at level | Crops |
 |---|---|
-| 1 | `strawberry`, `carrot`, `corn`, `sunflower` |
+| 1 | `strawberry`, `carrot`, `corn`, `eggplant` |
 | Designer-defined | Additional crops added as specified in level data |
 
 You may introduce any new identifier string in any level's `crop_set`. The validator checks that `collect_crop` goals do not reference a crop absent from `crop_set`.

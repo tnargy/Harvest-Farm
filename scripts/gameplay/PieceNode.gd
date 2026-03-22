@@ -13,7 +13,7 @@ const PIECE_TEXTURES: Dictionary = {
 	"strawberry":    "res://assets/pieces/strawberry.png",
 	"carrot":        "res://assets/pieces/carrot.png",
 	"corn":          "res://assets/pieces/corn.png",
-	"sunflower":     "res://assets/pieces/sunflower.png",
+	"eggplant":      "res://assets/pieces/eggplant.png",
 	"pumpkin":       "res://assets/pieces/pumpkin.png",
 	"tomato":        "res://assets/pieces/tomato.png",
 	"potato":        "res://assets/pieces/potato.png",
@@ -24,13 +24,18 @@ const PIECE_TEXTURES: Dictionary = {
 	"wheelbarrow":   "res://assets/pieces/wheelbarrow.png",
 }
 
+const OBSTACLE_TEXTURES: Dictionary = {
+	"rock":   "res://assets/obstacles/rock.png",
+	"flower": "res://assets/obstacles/sunflower.png",
+}
+
 # ── Piece → colour map ────────────────────────────────────────────────────────
 # Used as fallback for pieces that have no texture asset.
 const PIECE_COLORS: Dictionary = {
     "strawberry":    Color("E53935"),
     "carrot":        Color("FB8C00"),
     "corn":          Color("FDD835"),
-    "sunflower":     Color("FFB300"),
+    "eggplant":      Color("6A1B9A"),
     "pumpkin":       Color("EF6C00"),
     "tomato":        Color("E91E63"),
     "potato":        Color("A1887F"),
@@ -44,8 +49,9 @@ const PIECE_COLORS: Dictionary = {
 const OBSTACLE_COLORS: Dictionary = {
     "rock":   Color("607D8B"),
     "flower": Color("EC407A"),
-    "dirt":   Color("8D6E63"),
 }
+
+const CROW_TEXTURE := "res://assets/obstacles/crow.png"
 
 const EMPTY_COLOR    := Color("2A2A2A")
 const NEUTRAL_COLOR  := Color("F5F0E8")  # soft parchment bg behind sprites
@@ -63,6 +69,8 @@ var _hint_tween: Tween = null
 @onready var _panel:        Panel       = $Panel
 @onready var _texture_rect: TextureRect = $Panel/TextureRect
 @onready var _label:        Label       = $Panel/Label
+@onready var _hp_label:     Label       = $Panel/HpLabel
+@onready var _overlay_rect: TextureRect = $Panel/TextureRectOverlay
 
 # ── Setup ─────────────────────────────────────────────────────────────────────
 
@@ -93,26 +101,28 @@ func _refresh_visual() -> void:
     style.corner_radius_bottom_left  = CORNER_RADIUS
     style.corner_radius_bottom_right = CORNER_RADIUS
 
-    # Dirt adds a brown border instead of changing the piece colour.
-    if obstacle == "dirt":
-        style.border_color  = OBSTACLE_COLORS["dirt"]
-        style.border_width_top    = 3
-        style.border_width_bottom = 3
-        style.border_width_left   = 3
-        style.border_width_right  = 3
-
     _panel.add_theme_stylebox_override("panel", style)
     _label.text = _resolve_glyph()
     _apply_texture()
 
+    # HP label: only visible on flower cells.
+    if obstacle == "flower":
+        _hp_label.text = str(flower_hp)
+        _hp_label.show()
+    else:
+        _hp_label.hide()
+
 
 func _apply_texture() -> void:
-    if obstacle in ["rock", "flower"]:
-        # Obstacles: no sprite — use colour block
-        _texture_rect.texture = null
-        _texture_rect.hide()
+    # Obstacles that occupy the full cell (rock, flower) replace the piece texture.
+    var obs_path: String = OBSTACLE_TEXTURES.get(obstacle, "")
+    if obs_path != "":
+        _texture_rect.texture = load(obs_path)
+        _texture_rect.show()
+        _overlay_rect.hide()
         return
 
+    # Show the piece texture (if any) in the base layer.
     var tex_path: String = PIECE_TEXTURES.get(piece_id, "")
     if tex_path != "":
         _texture_rect.texture = load(tex_path)
@@ -121,11 +131,18 @@ func _apply_texture() -> void:
         _texture_rect.texture = null
         _texture_rect.hide()
 
+    # Dirt: render crow on top of the piece.
+    if obstacle == "dirt":
+        _overlay_rect.texture = load(CROW_TEXTURE)
+        _overlay_rect.show()
+    else:
+        _overlay_rect.hide()
+
 
 func _resolve_color() -> Color:
     match obstacle:
-        "rock":   return OBSTACLE_COLORS["rock"]
-        "flower": return OBSTACLE_COLORS["flower"]
+        "rock":   return NEUTRAL_COLOR
+        "flower": return NEUTRAL_COLOR
     if piece_id != "":
         # Pieces with a sprite asset get a neutral parchment background.
         if piece_id in PIECE_TEXTURES:
@@ -137,10 +154,6 @@ func _resolve_color() -> Color:
 func _resolve_glyph() -> String:
     if is_special:
         return "★"
-    match obstacle:
-        "rock":   return "▲"
-        "flower": return "✿" + str(flower_hp)
-        "dirt":   return "~"
     return ""
 
 # ── Animations ────────────────────────────────────────────────────────────────

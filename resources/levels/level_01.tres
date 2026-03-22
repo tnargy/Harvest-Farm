@@ -8,7 +8,7 @@ level_id = 1
 turn_limit = 20
 star_threshold_2 = 8
 star_threshold_3 = 14
-crop_set = Array[String](["strawberry", "carrot", "corn", "sunflower"])
+crop_set = Array[String](["strawberry", "carrot", "corn", "eggplant"])
 goals = Array[Dictionary]([{
 "target": 800,
 "type": "score"

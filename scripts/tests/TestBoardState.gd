@@ -437,14 +437,14 @@ func _test_mutation_methods() -> void:
 
 	# ── swap_pieces preserves special flags ──
 	board.place_piece(5, 5, "scarecrow", true, "")
-	board.place_piece(5, 6, "sunflower", false, "")
+	board.place_piece(5, 6, "eggplant", false, "")
 	board.swap_pieces(Vector2i(5, 5), Vector2i(5, 6))
 	_assert(board.get_cell(5, 6).piece == "scarecrow",
 		"swap_pieces: scarecrow moved to (5,6)")
 	_assert(board.get_cell(5, 6).is_special,
 		"swap_pieces: is_special carried with the piece to (5,6)")
 	_assert(not board.get_cell(5, 5).is_special,
-		"swap_pieces: (5,5) is_special == false after sunflower moved in")
+		"swap_pieces: (5,5) is_special == false after eggplant moved in")
 
 	# ── clear_dirt ──
 	var board20 := BoardState.new()
