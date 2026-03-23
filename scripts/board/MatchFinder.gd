@@ -20,7 +20,7 @@ class MatchResult:
 	## For straight matches: the direction of the run.
 	## For L-shape: the direction of the longer arm (the 3-piece run).
 	## For T-shape: the direction of the spine (the 3-piece run).
-	## Used by BoardController to set special_orientation on Bushel Basket spawns.
+	## Used by BoardController to set special_orientation on Bushel Basket spawns (match_5).
 	var orientation: String = ""
 
 	## True when this match causes a special piece to spawn.
@@ -50,16 +50,16 @@ class MatchResult:
 		match p_shape:
 			"match_4":
 				spawns_special = true
-				special_type   = "bushel_basket"
+				special_type   = "wheelbarrow"
 			"match_5":
 				spawns_special = true
-				special_type   = "scarecrow"
+				special_type   = "bushel_basket"
 			"match_l":
 				spawns_special = true
 				special_type   = "watering_can"
 			"match_t":
 				spawns_special = true
-				special_type   = "wheelbarrow"
+				special_type   = "scarecrow"
 			_:
 				spawns_special = false
 				special_type   = ""
@@ -214,8 +214,8 @@ func _find_t_shapes(
 			# ── Vertical spine: (row-1, col), (row, col), (row+1, col) ──
 			# Perpendicular arm (horizontal): (row, col-1), (row, col+1)
 			# Checked first so a board that satisfies both descriptions (a pure +
-			# shape) is always labelled "vertical" — Wheelbarrow clears both row
-			# and column regardless, so the label only affects future-proofing.
+			# shape) is always labelled "vertical" — Scarecrow clears by crop type
+			# regardless of orientation, so the label only affects future-proofing.
 			if _same_crop(board, crop, [
 				Vector2i(row - 1, col), Vector2i(row + 1, col),
 				Vector2i(row, col - 1), Vector2i(row, col + 1)

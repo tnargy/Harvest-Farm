@@ -60,6 +60,11 @@ class TurnResult:
 	## True when turns_remaining reached 0 with goals unsatisfied (fail).
 	var fail: bool = false
 
+	## Reason for failure. "" when fail is false.
+	## "no_turns" — turn counter reached 0.
+	## "no_moves" — no valid swaps remain on the board.
+	var fail_reason: String = ""
+
 
 # ── Fields ────────────────────────────────────────────────────────────────────
 
@@ -444,9 +449,11 @@ func attempt_swap(cell_a: Vector2i, cell_b: Vector2i) -> TurnResult:
 	if goal_tracker.all_goals_complete():
 		result.win = true
 	elif board.turns_remaining <= 0:
-		result.fail = true
+		result.fail        = true
+		result.fail_reason = "no_turns"
 	elif not _match_finder.has_any_valid_swap(board):
-		result.fail = true
+		result.fail        = true
+		result.fail_reason = "no_moves"
 
 	return result
 

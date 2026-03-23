@@ -15,9 +15,12 @@ const PIECE_TEXTURES: Dictionary = {
 	"corn":          "res://assets/pieces/corn.png",
 	"eggplant":      "res://assets/pieces/eggplant.png",
 	"pumpkin":       "res://assets/pieces/pumpkin.png",
+	"pumpkin-gold":  "res://assets/pieces/golden-pumpkin.png",
 	"tomato":        "res://assets/pieces/tomato.png",
 	"potato":        "res://assets/pieces/potato.png",
 	"cabbage":       "res://assets/pieces/cabbage.png",
+	"radish":        "res://assets/pieces/radish.png",
+	"cucumber":      "res://assets/pieces/cucumber.png",
 	"bushel_basket": "res://assets/pieces/basket.png",
 	"scarecrow":     "res://assets/pieces/scarecrow.png",
 	"watering_can":  "res://assets/pieces/wateringcan.png",
@@ -28,6 +31,7 @@ const OBSTACLE_TEXTURES: Dictionary = {
 	"rock":   "res://assets/obstacles/rock.png",
 	"flower": "res://assets/obstacles/sunflower.png",
 }
+
 
 # ── Piece → colour map ────────────────────────────────────────────────────────
 # Used as fallback for pieces that have no texture asset.
@@ -141,12 +145,13 @@ func _apply_texture() -> void:
 
 func _resolve_color() -> Color:
     match obstacle:
-        "rock":   return NEUTRAL_COLOR
-        "flower": return NEUTRAL_COLOR
+        "rock":   return Color.TRANSPARENT
+        "flower": return Color.TRANSPARENT
     if piece_id != "":
-        # Pieces with a sprite asset get a neutral parchment background.
+        # Pieces with a sprite asset get a transparent background so the
+        # PNG's own transparent areas show through cleanly.
         if piece_id in PIECE_TEXTURES:
-            return NEUTRAL_COLOR
+            return Color.TRANSPARENT
         return PIECE_COLORS.get(piece_id, Color("888888"))
     return EMPTY_COLOR
 

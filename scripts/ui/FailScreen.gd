@@ -14,6 +14,8 @@ extends Control
 @onready var _goals_container:    VBoxContainer = $ContentContainer/GoalsContainer
 @onready var _lives_label:        Label        = $ContentContainer/LivesDisplay/LivesLabel
 @onready var _regen_label:        Label        = $ContentContainer/LivesDisplay/RegenLabel
+@onready var _no_moves_label:     Label        = $ContentContainer/NoMovesLabel
+@onready var _no_turns_label:     Label        = $ContentContainer/NoTurnsLabel
 @onready var _retry_button:       Button       = $ButtonRow/RetryButton
 @onready var _buy_life_button:    Button       = $ButtonRow/BuyLifeButton
 @onready var _level_select_button:Button       = $ButtonRow/LevelSelectButton
@@ -58,6 +60,8 @@ func _ready() -> void:
 	_refresh_lives_display()
 	_refresh_button_states()
 	_refresh_seed_balance()
+	_no_moves_label.visible = (_data.get("fail_reason", "") == "no_moves")
+	_no_turns_label.visible = (_data.get("fail_reason", "") == "no_turns")
 
 	# Connect buttons.
 	_retry_button.pressed.connect(_on_retry_pressed)

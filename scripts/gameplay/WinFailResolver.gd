@@ -74,7 +74,7 @@ func _on_level_won(turn_result: BoardController.TurnResult) -> void:
 	ScreenRouter.go_win(payload)
 
 
-func _on_level_failed(_turn_result: BoardController.TurnResult) -> void:
+func _on_level_failed(turn_result: BoardController.TurnResult) -> void:
 	# Consume one life unconditionally (spec §9).
 	SaveData.consume_life()
 
@@ -91,6 +91,7 @@ func _on_level_failed(_turn_result: BoardController.TurnResult) -> void:
 		"level_id":         _level_data.level_id,
 		"lives_remaining":  SaveData.get_lives(),   # read AFTER consume_life
 		"incomplete_goals": incomplete,
+		"fail_reason":      turn_result.fail_reason,
 	}
 
 	# ── Transition ────────────────────────────────────────────────────────────

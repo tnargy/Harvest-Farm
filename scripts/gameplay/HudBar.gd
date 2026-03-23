@@ -56,7 +56,7 @@ func _goal_text(gs: GoalTracker.GoalState, target: int) -> String:
 			var crop: String = gs.definition.get("crop", "?")
 			return "%s: %d / %d" % [crop.capitalize(), gs.progress, target]
 		"clear_dirt":
-			return "Clear Dirt" + (" ✓" if gs.complete else "")
+			return "Remove Crows" + (" ✓" if gs.complete else "")
 		"clear_flowers":
 			return "Clear Flowers" + (" ✓" if gs.complete else "")
 		_:

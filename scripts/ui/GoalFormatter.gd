@@ -23,7 +23,7 @@ static func format_goal(goal: Dictionary) -> String:
 			var target: int = goal.get("target", 0)
 			return "Reach %s points" % format_number(target)
 		"clear_dirt":
-			return "Clear all dirt patches"
+			return "Remove all crows"
 		"clear_flowers":
 			return "Clear all flowers"
 		"collect_crop":

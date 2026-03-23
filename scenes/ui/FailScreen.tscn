@@ -75,6 +75,22 @@ text = "Next life in 15:00"
 theme_override_font_sizes/font_size = 14
 modulate = Color(1, 1, 1, 0.7)
 
+[node name="NoMovesLabel" type="Label" parent="ContentContainer"]
+layout_mode = 2
+visible = false
+text = "No more valid moves, Try again!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+modulate = Color(1, 0.6, 0.2, 1)
+
+[node name="NoTurnsLabel" type="Label" parent="ContentContainer"]
+layout_mode = 2
+visible = false
+text = "Out of turns, Try again!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+modulate = Color(1, 0.6, 0.2, 1)
+
 [node name="ButtonRow" type="VBoxContainer" parent="."]
 layout_mode = 0
 anchor_left = 0.5

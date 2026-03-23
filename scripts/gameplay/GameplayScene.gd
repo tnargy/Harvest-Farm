@@ -28,8 +28,10 @@ signal level_failed(turn_result: BoardController.TurnResult)
 const DRAG_THRESHOLD := 12.0
 
 # ── Child refs ────────────────────────────────────────────────────────────────
-@onready var _hud_bar    = $HudBar
-@onready var _board_grid = $BoardContainer/BoardGrid
+@onready var _hud_bar         = $HudBar
+@onready var _board_grid      = $BoardContainer/BoardGrid
+@onready var _quit_button:    Button              = $QuitButton
+@onready var _quit_confirm:   ConfirmationDialog  = $QuitConfirmDialog
 
 # ── Game objects ──────────────────────────────────────────────────────────────
 var _balance:          Balance          = null
@@ -88,6 +90,9 @@ func _ready() -> void:
 	_hint_timer.timeout.connect(_on_hint_timer_timeout)
 	add_child(_hint_timer)
 	_hint_timer.start()
+
+	_quit_button.pressed.connect(_on_quit_pressed)
+	_quit_confirm.confirmed.connect(_on_quit_confirmed)
 
 
 # ── Input ─────────────────────────────────────────────────────────────────────
@@ -187,6 +192,24 @@ func _do_swap(cell_a: Vector2i, cell_b: Vector2i) -> void:
 		emit_signal("level_failed", result)
 	else:
 		_hint_timer.start(_balance.HINT_DELAY_SECONDS)
+
+
+# ── Quit ──────────────────────────────────────────────────────────────────────
+
+func _on_quit_pressed() -> void:
+	_quit_confirm.popup_centered()
+
+
+func _on_quit_confirmed() -> void:
+	# Block any further input and stop the hint timer.
+	_animating = true
+	_hint_timer.stop()
+	_board_grid.clear_hint()
+
+	# Consume a life — quitting counts as a failed attempt.
+	SaveData.consume_life()
+
+	ScreenRouter.go_level_select()
 
 
 # ── Hint ──────────────────────────────────────────────────────────────────────

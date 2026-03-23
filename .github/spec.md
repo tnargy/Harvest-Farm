@@ -71,10 +71,10 @@ Standard interactable pieces. New crop types are introduced progressively across
 | Shape | Minimum pieces | Special piece spawned |
 |---|---|---|
 | Straight (row or column) — 3 | 3 | None |
-| Straight — 4 in a line | 4 | Bushel Basket |
-| Straight — 5 in a line | 5 | Scarecrow |
+| Straight — 4 in a line | 4 | Wheelbarrow |
+| Straight — 5 in a line | 5 | Bushel Basket |
 | L-shape (3 + 2 at corner) | 5 | Watering Can |
-| T-shape (3 + 2 crossing) | 5 | Wheelbarrow |
+| T-shape (3 + 2 crossing) | 5 | Scarecrow |
 
 A swap is only permitted if it results in a valid match of 3 or more for at least one of the swapped pieces. Only orthogonal swaps are permitted (no diagonal). Invalid swap attempts are rejected — the pieces animate back to their original positions and no turn is consumed.
 
@@ -97,15 +97,15 @@ Special pieces cannot be combined. Swapping two special pieces together is an in
 
 | Name | Trigger | Activation effect | Seeds dropped |
 |---|---|---|---|
-| Bushel Basket | 4 in a line | Clears all pieces in either the row or the column it occupies, determined by match orientation: horizontal match → clears row; vertical match → clears column. | `SEED_REWARD_SPECIAL_BUSHEL` |
-| Scarecrow | 5 in a line | Clears all pieces on the board that share the same crop type as the piece it was swapped with. | `SEED_REWARD_SPECIAL_SCARECROW` |
+| Wheelbarrow | 4 in a line | Clears the entire row AND entire column it occupies at activation (full cross pattern). | `SEED_REWARD_SPECIAL_WHEELBARROW` |
+| Bushel Basket | 5 in a line | Clears all pieces in either the row or the column it occupies, determined by match orientation: horizontal match → clears row; vertical match → clears column. | `SEED_REWARD_SPECIAL_BUSHEL` |
 | Watering Can | L-shape | Clears all pieces in the 3×3 area centered on the cell it occupies at activation. | `SEED_REWARD_SPECIAL_WATERING_CAN` |
-| Wheelbarrow | T-shape | Clears the entire row AND entire column it occupies at activation (full cross pattern). | `SEED_REWARD_SPECIAL_WHEELBARROW` |
+| Scarecrow | T-shape | Clears all pieces on the board that share the same crop type as the piece it was swapped with. | `SEED_REWARD_SPECIAL_SCARECROW` |
 
 Activation occurs when a special piece is included in a valid swap. The effect resolves before gravity and refill run. Cleared cells from special piece effects count as adjacent to neighboring obstacles for the purpose of clearing dirt patches and damaging flowers.
 
 **Behavioral scenario — Bushel Basket orientation**
-> **Given** a Bushel Basket was created from a horizontal 4-in-a-line match and sits at (4,4),
+> **Given** a Bushel Basket was created from a horizontal 5-in-a-line match and sits at (4,4),
 > **when** the player activates it,
 > **then** all pieces in row 4 are cleared. The column is not affected.
 

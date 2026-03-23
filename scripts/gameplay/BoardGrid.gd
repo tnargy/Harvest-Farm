@@ -338,6 +338,12 @@ func _sync_pieces_dict(board_state: BoardState) -> void:
 			var needs_node := (cs.piece != "" or cs.obstacle == "rock" or cs.obstacle == "flower")
 			if needs_node and not _pieces.has(coord):
 				_spawn_piece_node(row, col, cs)
+			elif needs_node and _pieces.has(coord):
+				# Refresh the node if its obstacle state is stale (e.g. dirt was cleared
+				# under a piece that survived the match — the crow overlay must be removed).
+				var node: PieceNode = _pieces[coord]
+				if is_instance_valid(node) and node.obstacle != cs.obstacle:
+					node.setup(cs.piece, cs.is_special, cs.obstacle, cs.flower_hp)
 			elif not needs_node and _pieces.has(coord):
 				var node = _pieces[coord]
 				if is_instance_valid(node):
